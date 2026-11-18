@@ -1,114 +1,251 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BARBIEVERSE</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BARBIEVERSE</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #ffd6e7, #d9c5ff);
-            color: #333;
-            text-align: center;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        header {
-            background: #ff69a6;
-            color: white;
-            padding: 35px 15px;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff4fa;
+    color: #382438;
+}
 
-        header h1 {
-            font-size: 42px;
-            letter-spacing: 3px;
-            margin: 0;
-        }
+header {
+    background: linear-gradient(120deg, #ed5b9c, #a77be8);
+    color: white;
+    padding: 45px 20px;
+    text-align: center;
+}
 
-        header p {
-            font-size: 15px;
-            letter-spacing: 2px;
-        }
+header h1 {
+    font-size: 42px;
+    letter-spacing: 5px;
+}
 
-        .container {
-            max-width: 750px;
-            margin: 35px auto;
-            padding: 20px;
-        }
+nav {
+    background: white;
+    padding: 17px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
 
-        .card {
-            background: white;
-            padding: 25px;
-            margin: 20px 0;
-            border-radius: 18px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+nav a {
+    color: #c43b82;
+    text-decoration: none;
+    margin: 10px;
+    font-weight: bold;
+}
 
-        h2 {
-            color: #e83e8c;
-        }
+.hero {
+    text-align: center;
+    padding: 55px 20px;
+}
 
-        .game-button {
-            display: inline-block;
-            background: #ff69a6;
-            color: white;
-            padding: 13px 22px;
-            margin: 8px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+.hero h2 {
+    color: #d63e88;
+    font-size: 32px;
+}
 
-        .game-button:hover {
-            background: #c92c75;
-        }
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 20px;
+}
 
-        footer {
-            background: #ff69a6;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
-        }
-    </style>
+.section-title {
+    color: #c43b82;
+    text-align: center;
+    margin-top: 35px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 5px 18px #d98bb522;
+}
+
+.card h3 {
+    color: #c43b82;
+}
+
+button {
+    background: #e64c98;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 22px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #a72e75;
+}
+
+#result {
+    color: #a72e75;
+    font-weight: bold;
+}
+
+footer {
+    background: #382438;
+    color: white;
+    text-align: center;
+    padding: 28px;
+    margin-top: 50px;
+}
+</style>
 </head>
 
 <body>
 
-    <header>
-        <h1>BARBIEVERSE</h1>
-        <p>YOUR WORLD. YOUR RULES. YOUR VIBE.</p>
-    </header>
+<header>
+    <h1>BARBIEVERSE</h1>
+    <p>YOUR WORLD. YOUR RULES. YOUR VIBE.</p>
+</header>
 
-    <div class="container">
+<nav>
+    <a href="#home">Home</a>
+    <a href="#fashion">Fashion</a>
+    <a href="#games">Games</a>
+    <a href="#about">About</a>
+</nav>
 
-        <div class="card">
-            <h2>Welcome to Barbieverse!</h2>
-            <p>Your space for fun, fashion, creativity and everything fabulous.</p>
-        </div>
+<section class="hero" id="home">
+    <h2>Welcome to Barbieverse!</h2>
+    <p>
+        A world of creativity, fashion, fun and imagination.
+        Explore your interests and express your style.
+    </p>
+    <a href="#fashion">
+        <button>Explore Barbieverse</button>
+    </a>
+</section>
 
-        <div class="card">
-            <h2>Explore the Games</h2>
+<main class="container">
 
-            <a href="#" class="game-button">Dress Up Challenge</a>
-            <a href="#" class="game-button">Makeup Challenge</a>
-            <a href="#" class="game-button">Dream House Game</a>
-            <a href="#" class="game-button">Barbie Quiz</a>
-            <a href="#" class="game-button">Fashion Competition</a>
-        </div>
+<h2 class="section-title" id="fashion">
+    ✨ Fashion World
+</h2>
 
-        <div class="card">
-            <h2>Daily Inspiration</h2>
-            <p>"Be bold, be creative, and make your own rules."</p>
-        </div>
+<div class="cards">
 
+    <div class="card">
+        <h3>👗 Style Challenge</h3>
+        <p>Discover a new fashion challenge.</p>
+        <button onclick="challenge()">Try Challenge</button>
     </div>
 
-    <footer>
-        <p>Made with love by Barbara Oluyinka</p>
-        <p>© 2026 BARBIEVERSE</p>
-    </footer>
+    <div class="card">
+        <h3>💄 Beauty Corner</h3>
+        <p>Explore beauty and creative ideas.</p>
+        <button onclick="alert('Welcome to Beauty Corner!')">
+            Explore
+        </button>
+    </div>
+
+    <div class="card">
+        <h3>🏡 Dream House</h3>
+        <p>Imagine and design your dream space.</p>
+        <button onclick="alert('Your dream house awaits!')">
+            Explore
+        </button>
+    </div>
+
+</div>
+
+<h2 class="section-title" id="games">
+    🎮 Fun Zone
+</h2>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Barbie Quiz</h3>
+        <p>What does HTML stand for?</p>
+
+        <button onclick="quiz(true)">
+            HyperText Markup Language
+        </button>
+
+        <button onclick="quiz(false)">
+            High Tech Modern Language
+        </button>
+
+        <p id="result"></p>
+    </div>
+
+    <div class="card">
+        <h3>Fashion Competition</h3>
+        <p>Show off your creativity and imagination!</p>
+        <button onclick="alert('Your fashion competition is ready!')">
+            Join
+        </button>
+    </div>
+
+</div>
+
+<h2 class="section-title" id="about">
+    💗 About Barbieverse
+</h2>
+
+<div class="card">
+    <p>
+        Barbieverse is a creative online space for fashion,
+        imagination, games and inspiration.
+    </p>
+    <p>Be creative. Be original. Be yourself.</p>
+</div>
+
+</main>
+
+<footer>
+    <p>Made with love by Barbara Oluyinka</p>
+    <p>© 2026 BARBIEVERSE</p>
+</footer>
+
+<script>
+function challenge() {
+    const ideas = [
+        "Create a dream party outfit!",
+        "Design a beautiful weekend look!",
+        "Imagine an outfit for a fashion show!",
+        "Create a colourful casual outfit!"
+    ];
+
+    const choice = Math.floor(Math.random() * ideas.length);
+    alert(ideas[choice]);
+}
+
+function quiz(correct) {
+    const result = document.getElementById("result");
+
+    if (correct) {
+        result.textContent = "Correct! Well done! 🎉";
+    } else {
+        result.textContent = "Not quite! Try again! 💗";
+    }
+}
+</script>
 
 </body>
 </html>
