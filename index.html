@@ -283,5 +283,25 @@ function competition() {
   alert("Fashion Competition! 👗 Pick your favourite outfit and show your creativity!");
 }
     </script>
-</body>
+<script>
+document.querySelectorAll('button, a, [role="button"]').forEach(btn => {
+  const name = btn.innerText.toLowerCase();
+
+  if (name.includes('beauty corner')) {
+    btn.onclick = beauty;
+  }
+
+  if (name.includes('dream house')) {
+    btn.onclick = dreamHouse;
+  }
+
+  if (name.includes('style challenge')) {
+    btn.onclick = challenge;
+  }
+
+  if (name.includes('fashion competition')) {
+    btn.onclick = competition;
+  }
+});
+</script></body>
 </html>
