@@ -303,5 +303,36 @@ document.querySelectorAll('button, a, [role="button"]').forEach(btn => {
     btn.onclick = competition;
   }
 });
+</script><script>
+document.querySelectorAll('button, a').forEach(btn => {
+  if (btn.innerText.includes('Beauty Corner') ||
+      btn.innerText.includes('Explore')) {
+    btn.onclick = function() {
+      let box = document.getElementById('beauty-page');
+
+      if (!box) {
+        box = document.createElement('div');
+        box.id = 'beauty-page';
+        box.style.cssText =
+          'background:#fff0f7;padding:25px;margin:20px;border-radius:20px;text-align:center;';
+
+        box.innerHTML = `
+          <h2>💄 Welcome to Beauty Corner!</h2>
+          <p>Explore your creativity!</p>
+          <h3>✨ Beauty Ideas</h3>
+          <p>🎀 Try a new hairstyle</p>
+          <p>💅 Create colourful nail designs</p>
+          <p>💗 Explore fun colour combinations</p>
+          <button onclick="document.getElementById('beauty-page').remove()">
+            Close
+          </button>
+        `;
+
+        document.body.appendChild(box);
+      }
+      box.scrollIntoView({behavior:'smooth'});
+    };
+  }
+});
 </script></body>
 </html>
