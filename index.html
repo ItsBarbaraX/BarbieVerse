@@ -334,5 +334,73 @@ document.querySelectorAll('button, a').forEach(btn => {
     };
   }
 });
-</script></body>
+</script>
+<div id="fashion-battle" style="background:#fff0f7;padding:20px;border-radius:18px;text-align:center;margin:20px;">
+  <h2>👗 Fashion Battle</h2>
+  <p id="fb-theme">Ready for your fashion challenge?</p>
+  <button onclick="fbStart()">Start Challenge 🎮</button>
+
+  <div id="fb-game" style="display:none;">
+    <h3>Choose your outfit!</h3>
+    <div id="fb-outfits">
+      <button onclick="fbChoose(this,'Casual')">👕 Casual</button>
+      <button onclick="fbChoose(this,'Glam')">👗 Glam</button>
+      <button onclick="fbChoose(this,'Sporty')">👟 Sporty</button>
+      <button onclick="fbChoose(this,'Royal')">👑 Royal</button>
+    </div>
+    <p id="fb-timer">30 seconds</p>
+    <p id="fb-result"></p>
+    <p id="fb-score">Points: 0</p>
+  </div>
+</div>
+
+<script>
+let fbPoints = 0;
+let fbTime = 30;
+let fbClock;
+let fbActive = false;
+
+const fbThemes = [
+  "Red Carpet Glam ✨",
+  "School Fashion 🎒",
+  "Royal Ball 👑",
+  "Summer Holiday 🌴",
+  "Sporty Style ⚽",
+  "Casual Cool 😎"
+];
+
+function fbStart() {
+  clearInterval(fbClock);
+  fbTime = 30;
+  fbActive = true;
+  document.getElementById('fb-game').style.display = 'block';
+  document.getElementById('fb-theme').innerText =
+    "Theme: " + fbThemes[Math.floor(Math.random()*fbThemes.length)];
+  document.getElementById('fb-timer').innerText = "30 seconds";
+  document.getElementById('fb-result').innerText = "";
+  document.getElementById('fb-score').innerText = "Points: " + fbPoints;
+
+  fbClock = setInterval(function() {
+    fbTime--;
+    document.getElementById('fb-timer').innerText = fbTime + " seconds";
+    if (fbTime <= 0) {
+      clearInterval(fbClock);
+      fbActive = false;
+      document.getElementById('fb-result').innerText =
+        "Time's up! Your total: " + fbPoints + " points!";
+    }
+  }, 1000);
+}
+
+function fbChoose(button, outfit) {
+  if (!fbActive) return;
+  fbPoints += 10;
+  document.getElementById('fb-score').innerText = "Points: " + fbPoints;
+  document.getElementById('fb-result').innerText =
+    "Amazing choice! " + outfit + " outfit! +10 points 🎉";
+  fbActive = false;
+  clearInterval(fbClock);
+}
+</script>
+</body>
 </html>
