@@ -567,5 +567,109 @@ function competition() {
 
   <button onclick="runwayPose()">💃 Runway Pose</button>
   <button onclick="saveLook()">💖 Save My Look</button>
-</div></body>
+</div>
+<style>
+#fashion-character {
+  font-size: 0 !important;
+  width: 250px;
+  height: 350px;
+  margin: auto;
+  animation: doll-bounce 2s infinite ease-in-out;
+}
+#fashion-character svg {
+  width: 100%;
+  height: 100%;
+}
+@keyframes doll-bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.doll-dance {
+  animation: doll-dance .5s ease-in-out 3 !important;
+}
+@keyframes doll-dance {
+  25% { transform: rotate(-12deg); }
+  75% { transform: rotate(12deg); }
+}
+</style>
+
+<script>
+let dollOutfit = "dress";
+let dollHair = "long";
+let dollAccessory = "";
+
+function drawDoll() {
+  const clothes = {
+    dress: '<path d="M100 135 L140 135 L165 250 L75 250 Z" fill="#ed65ad" stroke="#71375e" stroke-width="2"/>',
+    top: '<path d="M100 135 L140 135 L150 205 L90 205 Z" fill="#8b65dc" stroke="#71375e" stroke-width="2"/>',
+    jeans: '<path d="M90 195 L150 195 L145 320 L120 320 L118 240 L110 320 L85 320 Z" fill="#5489d9" stroke="#354d85" stroke-width="2"/>',
+    royal: '<path d="M100 135 L140 135 L180 250 L60 250 Z" fill="#7b3da8" stroke="#71375e" stroke-width="2"/>'
+  };
+
+  const hairs = {
+    long: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#55301e"/>',
+    curly: '<path d="M88 70 Q65 15 100 25 Q115 0 130 25 Q165 15 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#392018"/>',
+    red: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#b64a32"/>'
+  };
+
+  document.getElementById("fashion-character").innerHTML = `
+  <svg viewBox="0 0 240 350">
+    ${hairs[dollHair]}
+    <ellipse cx="120" cy="67" rx="30" ry="39" fill="#d99b75" stroke="#805344" stroke-width="2"/>
+    <path d="M108 68 Q113 73 118 68 M126 68 Q132 73 137 68" fill="none" stroke="#38251d" stroke-width="2"/>
+    <path d="M112 88 Q120 95 129 88" fill="none" stroke="#805344" stroke-width="2"/>
+    <rect x="110" y="100" width="20" height="25" fill="#d99b75"/>
+    <path d="M100 120 Q120 110 140 120 L150 200 L90 200 Z" fill="#d99b75"/>
+    <path d="M95 128 L76 205 L87 208 L108 155 M145 128 L164 205 L153 208 L132 155" fill="none" stroke="#d99b75" stroke-width="13"/>
+    <path d="M105 195 L120 195 L118 320 L95 320 Z M120 195 L137 195 L145 320 L121 320 Z" fill="#d99b75"/>
+    <path d="M95 320 L120 320 L120 332 L88 332 Z M121 320 L145 320 L151 332 L121 332 Z" fill="#603c30"/>
+    ${clothes[dollOutfit]}
+    ${dollAccessory === "Crown" ? '<path d="M95 36 L90 15 L108 27 L120 8 L132 27 L150 15 L145 40 Z" fill="#ffd447" stroke="#a87918" stroke-width="3"/>' : ""}
+    ${dollAccessory === "Glasses" ? '<g fill="none" stroke="#302b35" stroke-width="3"><circle cx="108" cy="68" r="10"/><circle cx="132" cy="68" r="10"/><path d="M118 68 L122 68"/></g>' : ""}
+    ${dollAccessory === "Handbag" ? '<path d="M151 180 L180 180 L184 220 L148 220 Z" fill="#e8a0c5"/><path d="M155 180 Q165 155 176 180" fill="none" stroke="#805344" stroke-width="3"/>' : ""}
+  </svg>`;
+}
+
+function dressUp(emoji, name) {
+  if (name === "Pretty Dress") dollOutfit = "dress";
+  if (name === "Cute Top") dollOutfit = "top";
+  if (name === "Jeans") dollOutfit = "jeans";
+  if (name === "Royal Outfit") dollOutfit = "royal";
+  drawDoll();
+  document.getElementById("fashion-status").innerText = name + " selected! ✨";
+}
+
+function changeHair(emoji, name) {
+  dollHair = name === "Curly Hair" ? "curly" :
+             name === "Red Hair" ? "red" : "long";
+  drawDoll();
+  document.getElementById("fashion-status").innerText = name + " selected!";
+}
+
+function addAccessory(emoji, name) {
+  dollAccessory = name;
+  drawDoll();
+  document.getElementById("fashion-status").innerText = name + " added!";
+}
+
+function animateCharacter() {
+  const doll = document.getElementById("fashion-character");
+  doll.classList.remove("doll-dance");
+  void doll.offsetWidth;
+  doll.classList.add("doll-dance");
+}
+
+function runwayPose() {
+  animateCharacter();
+  document.getElementById("fashion-status").innerText = "Runway time! 💃";
+}
+
+function saveLook() {
+  document.getElementById("fashion-status").innerText =
+    "Your look is saved in this session! 💖";
+}
+
+drawDoll();
+</script>
+</body>
 </html>
