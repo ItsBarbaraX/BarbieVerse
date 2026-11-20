@@ -411,5 +411,83 @@ function competition() {
     fbStart();
   }
 }
-</script></body>
+</script><style>
+#fashion-studio {
+  background: linear-gradient(135deg,#ffe0f0,#e4d9ff);
+  padding: 20px;
+  border-radius: 25px;
+  text-align: center;
+  font-family: Arial,sans-serif;
+  color: #54245f;
+}
+#fashion-studio h1 {font-size:28px;}
+#fashion-stage {
+  background: linear-gradient(#d9c7ff,#fff0f8);
+  border-radius: 22px;
+  padding: 20px;
+  min-height: 340px;
+  position: relative;
+  overflow: hidden;
+}
+#fashion-character {
+  font-size: 125px;
+  display: inline-block;
+  animation: character-bounce 2s infinite ease-in-out;
+}
+@keyframes character-bounce {
+  0%,100% {transform:translateY(0) rotate(-2deg);}
+  50% {transform:translateY(-12px) rotate(2deg);}
+}
+.fashion-options button {
+  background: white;
+  border: 2px solid #e8a5d0;
+  border-radius: 15px;
+  padding: 12px;
+  margin: 5px;
+  font-size: 22px;
+}
+.fashion-options button:active {
+  transform: scale(.9);
+}
+#fashion-status {
+  font-weight: bold;
+  margin: 12px;
+}
+</style>
+
+<div id="fashion-studio">
+  <h1>✨ Fashion Studio ✨</h1>
+  <p>Dress up your character and create a runway look!</p>
+
+  <div id="fashion-stage">
+    <div id="fashion-character">👩🏻</div>
+    <h2 id="fashion-outfit">Ready for a makeover?</h2>
+    <p id="fashion-status">Choose your first fashion item!</p>
+  </div>
+
+  <h3>👗 Choose Clothes</h3>
+  <div class="fashion-options">
+    <button onclick="dressUp('👗','Pretty Dress')">👗</button>
+    <button onclick="dressUp('👚','Cute Top')">👚</button>
+    <button onclick="dressUp('👖','Jeans')">👖</button>
+    <button onclick="dressUp('👘','Royal Outfit')">👘</button>
+  </div>
+
+  <h3>💇 Choose Hair</h3>
+  <div class="fashion-options">
+    <button onclick="changeHair('💇🏻‍♀️','Long Hair')">💇🏻‍♀️</button>
+    <button onclick="changeHair('👩🏻‍🦱','Curly Hair')">👩🏻‍🦱</button>
+    <button onclick="changeHair('👩🏻‍🦰','Red Hair')">👩🏻‍🦰</button>
+  </div>
+
+  <h3>👠 Accessories</h3>
+  <div class="fashion-options">
+    <button onclick="addAccessory('👑','Crown')">👑</button>
+    <button onclick="addAccessory('👜','Handbag')">👜</button>
+    <button onclick="addAccessory('👓','Glasses')">👓</button>
+  </div>
+
+  <button onclick="runwayPose()">💃 Runway Pose</button>
+  <button onclick="saveLook()">💖 Save My Look</button>
+</div></body>
 </html>
