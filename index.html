@@ -402,5 +402,14 @@ function fbChoose(button, outfit) {
   clearInterval(fbClock);
 }
 </script>
-</body>
+<script>
+function competition() {
+  const game = document.getElementById('fashion-battle');
+
+  if (game) {
+    game.scrollIntoView({behavior: 'smooth'});
+    fbStart();
+  }
+}
+</script></body>
 </html>
