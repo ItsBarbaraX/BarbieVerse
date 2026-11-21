@@ -223,8 +223,7 @@ footer {
     <p>© 2026 BARBIEVERSE</p>
 </footer>
 
-<script>
-function challenge() {
+<script> function challenge() {
     const ideas = [
         "Create a dream party outfit!",
         "Design a beautiful weekend look!",
@@ -232,8 +231,43 @@ function challenge() {
         "Create a colourful casual outfit!"
     ];
 
-    const choice = Math.floor(Math.random() * ideas.length);
-    alert(ideas[choice]);
+    const mission = ideas[Math.floor(Math.random() * ideas.length)];
+
+    const oldGame = document.getElementById("style-game");
+    if (oldGame) oldGame.remove();
+
+    const game = document.createElement("div");
+    game.id = "style-game";
+
+    game.innerHTML = `
+        <div style="background:#fff0f7;padding:25px;border-radius:20px;text-align:center;color:#333;">
+            <h2>✨ STYLE CHALLENGE ✨</h2>
+            <h3>${mission}</h3>
+            <p>Choose your outfit!</p>
+
+            <div id="outfit-options">
+                <button onclick="chooseOutfit('👗', this)">👗 Dress</button>
+                <button onclick="chooseOutfit('👚', this)">👚 Top</button>
+                <button onclick="chooseOutfit('👖', this)">👖 Jeans</button>
+                <button onclick="chooseOutfit('👑', this)">👑 Royal Look</button>
+            </div>
+
+            <h1 id="outfit-display">👗</h1>
+            <p id="game-score">Stars: 0 ⭐</p>
+            <button onclick="this.parentElement.parentElement.remove()">Close</button>
+        </div>
+    `;
+
+    document.body.appendChild(game);
+}
+
+let styleStars = 0;
+
+function chooseOutfit(item, button) {
+    document.getElementById("outfit-display").textContent = item;
+    styleStars += 10;
+    document.getElementById("game-score").textContent =
+        "Stars: " + styleStars + " ⭐";
 }
 
 function quiz(correct) {
