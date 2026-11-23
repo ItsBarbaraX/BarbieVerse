@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,6 +36,7 @@ nav {
     text-align: center;
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 nav a {
@@ -106,6 +106,92 @@ button:hover {
     font-weight: bold;
 }
 
+.game-panel {
+    display: none;
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    margin: 25px 0;
+    text-align: center;
+    box-shadow: 0 5px 18px #d98bb522;
+}
+
+.game-panel h2 {
+    color: #c43b82;
+}
+
+.game-options button {
+    background: white;
+    color: #a72e75;
+    border: 2px solid #e8a5d0;
+    border-radius: 15px;
+    padding: 14px;
+    font-size: 18px;
+}
+
+#fashion-studio {
+    background: linear-gradient(135deg,#ffe0f0,#e4d9ff);
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    color: #54245f;
+    margin-top: 25px;
+}
+
+#fashion-studio h2 {
+    font-size: 28px;
+}
+
+#fashion-stage {
+    background: linear-gradient(#d9c7ff,#fff0f8);
+    border-radius: 22px;
+    padding: 20px;
+    min-height: 380px;
+    overflow: hidden;
+}
+
+#fashion-character {
+    font-size: 0;
+    width: 250px;
+    height: 350px;
+    max-width: 100%;
+    margin: auto;
+    animation: doll-bounce 2s infinite ease-in-out;
+}
+
+#fashion-character svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes doll-bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.doll-dance {
+    animation: doll-dance .5s ease-in-out 3 !important;
+}
+
+@keyframes doll-dance {
+    25% { transform: rotate(-12deg); }
+    75% { transform: rotate(12deg); }
+}
+
+.fashion-options button {
+    background: white;
+    color: #54245f;
+    border: 2px solid #e8a5d0;
+    border-radius: 15px;
+    padding: 12px;
+    font-size: 22px;
+}
+
+#fashion-status {
+    font-weight: bold;
+    margin: 12px;
+}
+
 footer {
     background: #382438;
     color: white;
@@ -143,44 +229,60 @@ footer {
 
 <main class="container">
 
-<h2 class="section-title" id="fashion">
-    ✨ Fashion World
-</h2>
+<h2 class="section-title" id="fashion">✨ Fashion World</h2>
 
 <div class="cards">
 
     <div class="card">
         <h3>👗 Style Challenge</h3>
         <p>Discover a new fashion challenge.</p>
-        <button onclick="challenge()">Try Challenge</button>
+        <button onclick="challenge()">Play Now</button>
     </div>
 
     <div class="card">
         <h3>💄 Beauty Corner</h3>
         <p>Explore beauty and creative ideas.</p>
-        <button onclick="alert('Welcome to Beauty Corner!')">
-            Explore
-        </button>
+        <button onclick="beauty()">Explore</button>
     </div>
 
     <div class="card">
         <h3>🏡 Dream House</h3>
         <p>Imagine and design your dream space.</p>
-        <button onclick="alert('Your dream house awaits!')">
-            Explore
-        </button>
+        <button onclick="dreamHouse()">Explore</button>
     </div>
 
 </div>
 
-<h2 class="section-title" id="games">
-    🎮 Fun Zone
-</h2>
+<div id="style-game" class="game-panel">
+    <h2>✨ STYLE CHALLENGE ✨</h2>
+    <h3 id="style-theme">Your mission will appear here!</h3>
+    <p>Choose an outfit for your mission.</p>
+
+    <div class="game-options">
+        <button onclick="chooseOutfit('👗','Dress')">👗 Dress</button>
+        <button onclick="chooseOutfit('👚','Top')">👚 Top</button>
+        <button onclick="chooseOutfit('👖','Jeans')">👖 Jeans</button>
+        <button onclick="chooseOutfit('👑','Royal Look')">👑 Royal</button>
+    </div>
+
+    <h1 id="outfit-display">👗</h1>
+    <p id="outfit-name">Your outfit</p>
+    <p id="game-score">Stars: 0 ⭐</p>
+    <button onclick="closeGame()">Close Game</button>
+</div>
+
+<div id="feature-panel" class="game-panel">
+    <h2 id="feature-title"></h2>
+    <div id="feature-content"></div>
+    <button onclick="closeFeature()">Close</button>
+</div>
+
+<h2 class="section-title" id="games">🎮 Fun Zone</h2>
 
 <div class="cards">
 
     <div class="card">
-        <h3>Barbie Quiz</h3>
+        <h3>HTML Quiz</h3>
         <p>What does HTML stand for?</p>
 
         <button onclick="quiz(true)">
@@ -197,16 +299,68 @@ footer {
     <div class="card">
         <h3>Fashion Competition</h3>
         <p>Show off your creativity and imagination!</p>
-        <button onclick="alert('Your fashion competition is ready!')">
-            Join
-        </button>
+        <button onclick="competition()">Join Competition</button>
     </div>
 
 </div>
 
-<h2 class="section-title" id="about">
-    💗 About Barbieverse
-</h2>
+<div id="fashion-battle" class="game-panel">
+    <h2>👗 Fashion Battle</h2>
+    <h3 id="fb-theme">Ready for your fashion challenge?</h3>
+    <p>Choose an outfit that matches the theme!</p>
+
+    <div class="game-options">
+        <button onclick="fbChoose('Casual')">👕 Casual</button>
+        <button onclick="fbChoose('Glam')">👗 Glam</button>
+        <button onclick="fbChoose('Sporty')">👟 Sporty</button>
+        <button onclick="fbChoose('Royal')">👑 Royal</button>
+    </div>
+
+    <p id="fb-timer">30 seconds</p>
+    <p id="fb-result"></p>
+    <p id="fb-score">Points: 0</p>
+    <button onclick="closeBattle()">Close Competition</button>
+</div>
+
+<h2 class="section-title">✨ Fashion Studio</h2>
+
+<div id="fashion-studio">
+    <h2>✨ Fashion Studio ✨</h2>
+    <p>Dress up your character and create a runway look!</p>
+
+    <div id="fashion-stage">
+        <div id="fashion-character">👩🏻</div>
+        <h3 id="fashion-outfit">Ready for a makeover?</h3>
+        <p id="fashion-status">Choose your first fashion item!</p>
+    </div>
+
+    <h3>👗 Choose Clothes</h3>
+    <div class="fashion-options">
+        <button onclick="dressUp('dress','Pretty Dress')">👗</button>
+        <button onclick="dressUp('top','Cute Top')">👚</button>
+        <button onclick="dressUp('jeans','Jeans')">👖</button>
+        <button onclick="dressUp('royal','Royal Outfit')">👘</button>
+    </div>
+
+    <h3>💇 Choose Hair</h3>
+    <div class="fashion-options">
+        <button onclick="changeHair('long','Long Hair')">💇🏻‍♀️</button>
+        <button onclick="changeHair('curly','Curly Hair')">👩🏻‍🦱</button>
+        <button onclick="changeHair('red','Red Hair')">👩🏻‍🦰</button>
+    </div>
+
+    <h3>👠 Accessories</h3>
+    <div class="fashion-options">
+        <button onclick="addAccessory('Crown')">👑</button>
+        <button onclick="addAccessory('Handbag')">👜</button>
+        <button onclick="addAccessory('Glasses')">👓</button>
+    </div>
+
+    <button onclick="runwayPose()">💃 Runway Pose</button>
+    <button onclick="saveLook()">💖 Save My Look</button>
+</div>
+
+<h2 class="section-title" id="about">💗 About Barbieverse</h2>
 
 <div class="card">
     <p>
@@ -223,52 +377,65 @@ footer {
     <p>© 2026 BARBIEVERSE</p>
 </footer>
 
-<script> function challenge() {
-    const ideas = [
-        "Create a dream party outfit!",
-        "Design a beautiful weekend look!",
-        "Imagine an outfit for a fashion show!",
-        "Create a colourful casual outfit!"
-    ];
+<script>
+// STYLE CHALLENGE
 
-    const mission = ideas[Math.floor(Math.random() * ideas.length)];
-
-    const oldGame = document.getElementById("style-game");
-    if (oldGame) oldGame.remove();
-
-    const game = document.createElement("div");
-    game.id = "style-game";
-
-    game.innerHTML = `
-        <div style="background:#fff0f7;padding:25px;border-radius:20px;text-align:center;color:#333;">
-            <h2>✨ STYLE CHALLENGE ✨</h2>
-            <h3>${mission}</h3>
-            <p>Choose your outfit!</p>
-
-            <div id="outfit-options">
-                <button onclick="chooseOutfit('👗', this)">👗 Dress</button>
-                <button onclick="chooseOutfit('👚', this)">👚 Top</button>
-                <button onclick="chooseOutfit('👖', this)">👖 Jeans</button>
-                <button onclick="chooseOutfit('👑', this)">👑 Royal Look</button>
-            </div>
-
-            <h1 id="outfit-display">👗</h1>
-            <p id="game-score">Stars: 0 ⭐</p>
-            <button onclick="this.parentElement.parentElement.remove()">Close</button>
-        </div>
-    `;
-
-    document.body.appendChild(game);
-}
+const ideas = [
+    "Create a dream party outfit!",
+    "Design a beautiful weekend look!",
+    "Imagine an outfit for a fashion show!",
+    "Create a colourful casual outfit!"
+];
 
 let styleStars = 0;
 
-function chooseOutfit(item, button) {
-    document.getElementById("outfit-display").textContent = item;
-    styleStars += 10;
-    document.getElementById("game-score").textContent =
-        "Stars: " + styleStars + " ⭐";
+function challenge() {
+    const mission = ideas[Math.floor(Math.random() * ideas.length)];
+
+    document.getElementById("style-theme").textContent = mission;
+    document.getElementById("style-game").style.display = "block";
+    document.getElementById("style-game").scrollIntoView({behavior:"smooth"});
 }
+
+function chooseOutfit(item, name) {
+    document.getElementById("outfit-display").textContent = item;
+    document.getElementById("outfit-name").textContent = name + " selected!";
+    styleStars += 10;
+    document.getElementById("game-score").textContent = "Stars: " + styleStars + " ⭐";
+}
+
+function closeGame() {
+    document.getElementById("style-game").style.display = "none";
+}
+
+// BEAUTY CORNER AND DREAM HOUSE
+
+function beauty() {
+    showFeature(
+        "💄 Beauty Corner",
+        "<h3>✨ Beauty Ideas</h3><p>🎀 Try a new hairstyle</p><p>💅 Create colourful nail designs</p><p>💗 Explore fun colour combinations</p><p>🌸 Create your own beauty inspiration board!</p>"
+    );
+}
+
+function dreamHouse() {
+    showFeature(
+        "🏡 Dream House",
+        "<h3>Design your dream space!</h3><p>🛋️ Choose your favourite living room style</p><p>🛏️ Imagine your dream bedroom</p><p>🌷 Add a beautiful garden</p><p>✨ Make your dream home special!</p>"
+    );
+}
+
+function showFeature(title, content) {
+    document.getElementById("feature-title").textContent = title;
+    document.getElementById("feature-content").innerHTML = content;
+    document.getElementById("feature-panel").style.display = "block";
+    document.getElementById("feature-panel").scrollIntoView({behavior:"smooth"});
+}
+
+function closeFeature() {
+    document.getElementById("feature-panel").style.display = "none";
+}
+
+// HTML QUIZ
 
 function quiz(correct) {
     const result = document.getElementById("result");
@@ -279,431 +446,145 @@ function quiz(correct) {
         result.textContent = "Not quite! Try again! 💗";
     }
 }
-</script>
 
+// FASHION COMPETITION
 
-
-    <script>
-function challenge() {
-  const challenges = [
-    "Create a stylish outfit for a red carpet!",
-    "Design a cool school outfit!",
-    "Create a dream vacation look!",
-    "Style an outfit using only two colours!",
-    "Create a celebrity-inspired outfit!"
-  ];
-
-  const random = Math.floor(Math.random() * challenges.length);
-  alert(challenges[random]);
-}
-
-function quiz(correct) {
-  if (correct) {
-    alert("Correct! 🎉 Amazing job!");
-  } else {
-    alert("Oops! Try again! 💗");
-  }
-}
-
-function beauty() {
-  alert("Welcome to Beauty Corner! 💄 Explore colours, hairstyles and creative looks!");
-}
-
-function dreamHouse() {
-  alert("Welcome to Dream House! 🏡 Imagine and design your dream home!");
-}
-
-function competition() {
-  alert("Fashion Competition! 👗 Pick your favourite outfit and show your creativity!");
-}
-    </script>
-<script>
-document.querySelectorAll('button, a, [role="button"]').forEach(btn => {
-  const name = btn.innerText.toLowerCase();
-
-  if (name.includes('beauty corner')) {
-    btn.onclick = beauty;
-  }
-
-  if (name.includes('dream house')) {
-    btn.onclick = dreamHouse;
-  }
-
-  if (name.includes('style challenge')) {
-    btn.onclick = challenge;
-  }
-
-  if (name.includes('fashion competition')) {
-    btn.onclick = competition;
-  }
-});
-</script><script>
-document.querySelectorAll('button, a').forEach(btn => {
-  if (btn.innerText.includes('Beauty Corner') ||
-      btn.innerText.includes('Explore')) {
-    btn.onclick = function() {
-      let box = document.getElementById('beauty-page');
-
-      if (!box) {
-        box = document.createElement('div');
-        box.id = 'beauty-page';
-        box.style.cssText =
-          'background:#fff0f7;padding:25px;margin:20px;border-radius:20px;text-align:center;';
-
-        box.innerHTML = `
-          <h2>💄 Welcome to Beauty Corner!</h2>
-          <p>Explore your creativity!</p>
-          <h3>✨ Beauty Ideas</h3>
-          <p>🎀 Try a new hairstyle</p>
-          <p>💅 Create colourful nail designs</p>
-          <p>💗 Explore fun colour combinations</p>
-          <button onclick="document.getElementById('beauty-page').remove()">
-            Close
-          </button>
-        `;
-
-        document.body.appendChild(box);
-      }
-      box.scrollIntoView({behavior:'smooth'});
-    };
-  }
-});
-</script>
-<div id="fashion-battle" style="background:#fff0f7;padding:20px;border-radius:18px;text-align:center;margin:20px;">
-  <h2>👗 Fashion Battle</h2>
-  <p id="fb-theme">Ready for your fashion challenge?</p>
-  <button onclick="fbStart()">Start Challenge 🎮</button>
-
-  <div id="fb-game" style="display:none;">
-    <h3>Choose your outfit!</h3>
-    <div id="fb-outfits">
-      <button onclick="fbChoose(this,'Casual')">👕 Casual</button>
-      <button onclick="fbChoose(this,'Glam')">👗 Glam</button>
-      <button onclick="fbChoose(this,'Sporty')">👟 Sporty</button>
-      <button onclick="fbChoose(this,'Royal')">👑 Royal</button>
-    </div>
-    <p id="fb-timer">30 seconds</p>
-    <p id="fb-result"></p>
-    <p id="fb-score">Points: 0</p>
-  </div>
-</div>
-
-<script>
 let fbPoints = 0;
 let fbTime = 30;
 let fbClock;
 let fbActive = false;
 
 const fbThemes = [
-  "Red Carpet Glam ✨",
-  "School Fashion 🎒",
-  "Royal Ball 👑",
-  "Summer Holiday 🌴",
-  "Sporty Style ⚽",
-  "Casual Cool 😎"
+    "Red Carpet Glam ✨",
+    "School Fashion 🎒",
+    "Royal Ball 👑",
+    "Summer Holiday 🌴",
+    "Sporty Style ⚽",
+    "Casual Cool 😎"
 ];
 
-function fbStart() {
-  clearInterval(fbClock);
-  fbTime = 30;
-  fbActive = true;
-  document.getElementById('fb-game').style.display = 'block';
-  document.getElementById('fb-theme').innerText =
-    "Theme: " + fbThemes[Math.floor(Math.random()*fbThemes.length)];
-  document.getElementById('fb-timer').innerText = "30 seconds";
-  document.getElementById('fb-result').innerText = "";
-  document.getElementById('fb-score').innerText = "Points: " + fbPoints;
-
-  fbClock = setInterval(function() {
-    fbTime--;
-    document.getElementById('fb-timer').innerText = fbTime + " seconds";
-    if (fbTime <= 0) {
-      clearInterval(fbClock);
-      fbActive = false;
-      document.getElementById('fb-result').innerText =
-        "Time's up! Your total: " + fbPoints + " points!";
-    }
-  }, 1000);
-}
-
-function fbChoose(button, outfit) {
-  if (!fbActive) return;
-  fbPoints += 10;
-  document.getElementById('fb-score').innerText = "Points: " + fbPoints;
-  document.getElementById('fb-result').innerText =
-    "Amazing choice! " + outfit + " outfit! +10 points 🎉";
-  fbActive = false;
-  clearInterval(fbClock);
-}
-</script>
-<script>
 function competition() {
-  const game = document.getElementById('fashion-battle');
+    clearInterval(fbClock);
+    fbTime = 30;
+    fbActive = true;
+    fbPoints = 0;
 
-  if (game) {
-    game.scrollIntoView({behavior: 'smooth'});
-    fbStart();
-  }
-}
-</script><style>
-#fashion-studio {
-  background: linear-gradient(135deg,#ffe0f0,#e4d9ff);
-  padding: 20px;
-  border-radius: 25px;
-  text-align: center;
-  font-family: Arial,sans-serif;
-  color: #54245f;
-}
-#fashion-studio h1 {font-size:28px;}
-#fashion-stage {
-  background: linear-gradient(#d9c7ff,#fff0f8);
-  border-radius: 22px;
-  padding: 20px;
-  min-height: 340px;
-  position: relative;
-  overflow: hidden;
-}
-#fashion-character {
-  font-size: 125px;
-  display: inline-block;
-  animation: character-bounce 2s infinite ease-in-out;
-}
-@keyframes character-bounce {
-  0%,100% {transform:translateY(0) rotate(-2deg);}
-  50% {transform:translateY(-12px) rotate(2deg);}
-}
-.fashion-options button {
-  background: white;
-  border: 2px solid #e8a5d0;
-  border-radius: 15px;
-  padding: 12px;
-  margin: 5px;
-  font-size: 22px;
-}
-.fashion-options button:active {
-  transform: scale(.9);
-}
-#fashion-status {
-  font-weight: bold;
-  margin: 12px;
-}
-</style>
+    document.getElementById("fashion-battle").style.display = "block";
+    document.getElementById("fb-theme").textContent =
+        "Theme: " + fbThemes[Math.floor(Math.random() * fbThemes.length)];
+    document.getElementById("fb-timer").textContent = "30 seconds";
+    document.getElementById("fb-result").textContent = "Choose your look!";
+    document.getElementById("fb-score").textContent = "Points: 0";
 
-<div id="fashion-studio">
-  <h1>✨ Fashion Studio ✨</h1>
-  <p>Dress up your character and create a runway look!</p>
+    document.getElementById("fashion-battle").scrollIntoView({behavior:"smooth"});
 
-  <div id="fashion-stage">
-    <div id="fashion-character">👩🏻</div>
-    <h2 id="fashion-outfit">Ready for a makeover?</h2>
-    <p id="fashion-status">Choose your first fashion item!</p>
-  </div>
+    fbClock = setInterval(function() {
+        fbTime--;
+        document.getElementById("fb-timer").textContent = fbTime + " seconds";
 
-  <h3>👗 Choose Clothes</h3>
-  <div class="fashion-options">
-    <button onclick="dressUp('👗','Pretty Dress')">👗</button>
-    <button onclick="dressUp('👚','Cute Top')">👚</button>
-    <button onclick="dressUp('👖','Jeans')">👖</button>
-    <button onclick="dressUp('👘','Royal Outfit')">👘</button>
-  </div>
+        if (fbTime <= 0) {
+            clearInterval(fbClock);
+            fbActive = false;
+            document.getElementById("fb-result").textContent =
+                "Time's up! Your total: " + fbPoints + " points!";
+        }
+    }, 1000);
+}
 
-  <h3>💇 Choose Hair</h3>
-  <div class="fashion-options">
-    <button onclick="changeHair('💇🏻‍♀️','Long Hair')">💇🏻‍♀️</button>
-    <button onclick="changeHair('👩🏻‍🦱','Curly Hair')">👩🏻‍🦱</button>
-    <button onclick="changeHair('👩🏻‍🦰','Red Hair')">👩🏻‍🦰</button>
-  </div>
+function fbChoose(outfit) {
+    if (!fbActive) return;
 
-  <h3>👠 Accessories</h3>
-  <div class="fashion-options">
-    <button onclick="addAccessory('👑','Crown')">👑</button>
-    <button onclick="addAccessory('👜','Handbag')">👜</button>
-    <button onclick="addAccessory('👓','Glasses')">👓</button>
-  </div>
+    fbPoints += 10;
+    document.getElementById("fb-score").textContent = "Points: " + fbPoints;
+    document.getElementById("fb-result").textContent =
+        "Amazing choice! " + outfit + " outfit! +10 points 🎉";
 
-  <button onclick="runwayPose()">💃 Runway Pose</button>
-  <button onclick="saveLook()">💖 Save My Look</button>
-</div><style>
-#fashion-studio {
-  background: linear-gradient(135deg,#ffe0f0,#e4d9ff);
-  padding: 20px;
-  border-radius: 25px;
-  text-align: center;
-  font-family: Arial,sans-serif;
-  color: #54245f;
+    fbActive = false;
+    clearInterval(fbClock);
 }
-#fashion-studio h1 {font-size:28px;}
-#fashion-stage {
-  background: linear-gradient(#d9c7ff,#fff0f8);
-  border-radius: 22px;
-  padding: 20px;
-  min-height: 340px;
-  position: relative;
-  overflow: hidden;
-}
-#fashion-character {
-  font-size: 125px;
-  display: inline-block;
-  animation: character-bounce 2s infinite ease-in-out;
-}
-@keyframes character-bounce {
-  0%,100% {transform:translateY(0) rotate(-2deg);}
-  50% {transform:translateY(-12px) rotate(2deg);}
-}
-.fashion-options button {
-  background: white;
-  border: 2px solid #e8a5d0;
-  border-radius: 15px;
-  padding: 12px;
-  margin: 5px;
-  font-size: 22px;
-}
-.fashion-options button:active {
-  transform: scale(.9);
-}
-#fashion-status {
-  font-weight: bold;
-  margin: 12px;
-}
-</style>
 
-<div id="fashion-studio">
-  <h1>✨ Fashion Studio ✨</h1>
-  <p>Dress up your character and create a runway look!</p>
-
-  <div id="fashion-stage">
-    <div id="fashion-character">👩🏻</div>
-    <h2 id="fashion-outfit">Ready for a makeover?</h2>
-    <p id="fashion-status">Choose your first fashion item!</p>
-  </div>
-
-  <h3>👗 Choose Clothes</h3>
-  <div class="fashion-options">
-    <button onclick="dressUp('👗','Pretty Dress')">👗</button>
-    <button onclick="dressUp('👚','Cute Top')">👚</button>
-    <button onclick="dressUp('👖','Jeans')">👖</button>
-    <button onclick="dressUp('👘','Royal Outfit')">👘</button>
-  </div>
-
-  <h3>💇 Choose Hair</h3>
-  <div class="fashion-options">
-    <button onclick="changeHair('💇🏻‍♀️','Long Hair')">💇🏻‍♀️</button>
-    <button onclick="changeHair('👩🏻‍🦱','Curly Hair')">👩🏻‍🦱</button>
-    <button onclick="changeHair('👩🏻‍🦰','Red Hair')">👩🏻‍🦰</button>
-  </div>
-
-  <h3>👠 Accessories</h3>
-  <div class="fashion-options">
-    <button onclick="addAccessory('👑','Crown')">👑</button>
-    <button onclick="addAccessory('👜','Handbag')">👜</button>
-    <button onclick="addAccessory('👓','Glasses')">👓</button>
-  </div>
-
-  <button onclick="runwayPose()">💃 Runway Pose</button>
-  <button onclick="saveLook()">💖 Save My Look</button>
-</div>
-<style>
-#fashion-character {
-  font-size: 0 !important;
-  width: 250px;
-  height: 350px;
-  margin: auto;
-  animation: doll-bounce 2s infinite ease-in-out;
+function closeBattle() {
+    clearInterval(fbClock);
+    fbActive = false;
+    document.getElementById("fashion-battle").style.display = "none";
 }
-#fashion-character svg {
-  width: 100%;
-  height: 100%;
-}
-@keyframes doll-bounce {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-.doll-dance {
-  animation: doll-dance .5s ease-in-out 3 !important;
-}
-@keyframes doll-dance {
-  25% { transform: rotate(-12deg); }
-  75% { transform: rotate(12deg); }
-}
-</style>
 
-<script>
+// FASHION STUDIO CHARACTER
+
 let dollOutfit = "dress";
 let dollHair = "long";
 let dollAccessory = "";
 
 function drawDoll() {
-  const clothes = {
-    dress: '<path d="M100 135 L140 135 L165 250 L75 250 Z" fill="#ed65ad" stroke="#71375e" stroke-width="2"/>',
-    top: '<path d="M100 135 L140 135 L150 205 L90 205 Z" fill="#8b65dc" stroke="#71375e" stroke-width="2"/>',
-    jeans: '<path d="M90 195 L150 195 L145 320 L120 320 L118 240 L110 320 L85 320 Z" fill="#5489d9" stroke="#354d85" stroke-width="2"/>',
-    royal: '<path d="M100 135 L140 135 L180 250 L60 250 Z" fill="#7b3da8" stroke="#71375e" stroke-width="2"/>'
-  };
+    const clothes = {
+        dress: '<path d="M100 135 L140 135 L165 250 L75 250 Z" fill="#ed65ad" stroke="#71375e" stroke-width="2"/>',
+        top: '<path d="M100 135 L140 135 L150 205 L90 205 Z" fill="#8b65dc" stroke="#71375e" stroke-width="2"/>',
+        jeans: '<path d="M90 195 L150 195 L145 320 L120 320 L118 240 L110 320 L85 320 Z" fill="#5489d9" stroke="#354d85" stroke-width="2"/>',
+        royal: '<path d="M100 135 L140 135 L180 250 L60 250 Z" fill="#7b3da8" stroke="#71375e" stroke-width="2"/>'
+    };
 
-  const hairs = {
-    long: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#55301e"/>',
-    curly: '<path d="M88 70 Q65 15 100 25 Q115 0 130 25 Q165 15 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#392018"/>',
-    red: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#b64a32"/>'
-  };
+    const hairs = {
+        long: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#55301e"/>',
+        curly: '<path d="M88 70 Q65 15 100 25 Q115 0 130 25 Q165 15 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#392018"/>',
+        red: '<path d="M88 70 Q75 10 120 20 Q165 10 152 70 L155 140 L138 130 L137 65 L103 65 L95 140 L80 130 Z" fill="#b64a32"/>'
+    };
 
-  document.getElementById("fashion-character").innerHTML = `
-  <svg viewBox="0 0 240 350">
-    ${hairs[dollHair]}
-    <ellipse cx="120" cy="67" rx="30" ry="39" fill="#d99b75" stroke="#805344" stroke-width="2"/>
-    <path d="M108 68 Q113 73 118 68 M126 68 Q132 73 137 68" fill="none" stroke="#38251d" stroke-width="2"/>
-    <path d="M112 88 Q120 95 129 88" fill="none" stroke="#805344" stroke-width="2"/>
-    <rect x="110" y="100" width="20" height="25" fill="#d99b75"/>
-    <path d="M100 120 Q120 110 140 120 L150 200 L90 200 Z" fill="#d99b75"/>
-    <path d="M95 128 L76 205 L87 208 L108 155 M145 128 L164 205 L153 208 L132 155" fill="none" stroke="#d99b75" stroke-width="13"/>
-    <path d="M105 195 L120 195 L118 320 L95 320 Z M120 195 L137 195 L145 320 L121 320 Z" fill="#d99b75"/>
-    <path d="M95 320 L120 320 L120 332 L88 332 Z M121 320 L145 320 L151 332 L121 332 Z" fill="#603c30"/>
-    ${clothes[dollOutfit]}
-    ${dollAccessory === "Crown" ? '<path d="M95 36 L90 15 L108 27 L120 8 L132 27 L150 15 L145 40 Z" fill="#ffd447" stroke="#a87918" stroke-width="3"/>' : ""}
-    ${dollAccessory === "Glasses" ? '<g fill="none" stroke="#302b35" stroke-width="3"><circle cx="108" cy="68" r="10"/><circle cx="132" cy="68" r="10"/><path d="M118 68 L122 68"/></g>' : ""}
-    ${dollAccessory === "Handbag" ? '<path d="M151 180 L180 180 L184 220 L148 220 Z" fill="#e8a0c5"/><path d="M155 180 Q165 155 176 180" fill="none" stroke="#805344" stroke-width="3"/>' : ""}
-  </svg>`;
+    document.getElementById("fashion-character").innerHTML = `
+    <svg viewBox="0 0 240 350">
+        ${hairs[dollHair]}
+        <ellipse cx="120" cy="67" rx="30" ry="39" fill="#d99b75" stroke="#805344" stroke-width="2"/>
+        <path d="M108 68 Q113 73 118 68 M126 68 Q132 73 137 68" fill="none" stroke="#38251d" stroke-width="2"/>
+        <path d="M112 88 Q120 95 129 88" fill="none" stroke="#805344" stroke-width="2"/>
+        <rect x="110" y="100" width="20" height="25" fill="#d99b75"/>
+        <path d="M100 120 Q120 110 140 120 L150 200 L90 200 Z" fill="#d99b75"/>
+        <path d="M95 128 L76 205 L87 208 L108 155 M145 128 L164 205 L153 208 L132 155" fill="none" stroke="#d99b75" stroke-width="13"/>
+        <path d="M105 195 L120 195 L118 320 L95 320 Z M120 195 L137 195 L145 320 L121 320 Z" fill="#d99b75"/>
+        <path d="M95 320 L120 320 L120 332 L88 332 Z M121 320 L145 320 L151 332 L121 332 Z" fill="#603c30"/>
+        ${clothes[dollOutfit]}
+        ${dollAccessory === "Crown" ? '<path d="M95 36 L90 15 L108 27 L120 8 L132 27 L150 15 L145 40 Z" fill="#ffd447" stroke="#a87918" stroke-width="3"/>' : ""}
+        ${dollAccessory === "Glasses" ? '<g fill="none" stroke="#302b35" stroke-width="3"><circle cx="108" cy="68" r="10"/><circle cx="132" cy="68" r="10"/><path d="M118 68 L122 68"/></g>' : ""}
+        ${dollAccessory === "Handbag" ? '<path d="M151 180 L180 180 L184 220 L148 220 Z" fill="#e8a0c5"/><path d="M155 180 Q165 155 176 180" fill="none" stroke="#805344" stroke-width="3"/>' : ""}
+    </svg>`;
 }
 
-function dressUp(emoji, name) {
-  if (name === "Pretty Dress") dollOutfit = "dress";
-  if (name === "Cute Top") dollOutfit = "top";
-  if (name === "Jeans") dollOutfit = "jeans";
-  if (name === "Royal Outfit") dollOutfit = "royal";
-  drawDoll();
-  document.getElementById("fashion-status").innerText = name + " selected! ✨";
+function dressUp(outfit, name) {
+    dollOutfit = outfit;
+    drawDoll();
+    document.getElementById("fashion-outfit").textContent = name;
+    document.getElementById("fashion-status").textContent = name + " selected! ✨";
 }
 
-function changeHair(emoji, name) {
-  dollHair = name === "Curly Hair" ? "curly" :
-             name === "Red Hair" ? "red" : "long";
-  drawDoll();
-  document.getElementById("fashion-status").innerText = name + " selected!";
+function changeHair(hair, name) {
+    dollHair = hair;
+    drawDoll();
+    document.getElementById("fashion-status").textContent = name + " selected!";
 }
 
-function addAccessory(emoji, name) {
-  dollAccessory = name;
-  drawDoll();
-  document.getElementById("fashion-status").innerText = name + " added!";
+function addAccessory(name) {
+    dollAccessory = name;
+    drawDoll();
+    document.getElementById("fashion-status").textContent = name + " added!";
 }
 
 function animateCharacter() {
-  const doll = document.getElementById("fashion-character");
-  doll.classList.remove("doll-dance");
-  void doll.offsetWidth;
-  doll.classList.add("doll-dance");
+    const doll = document.getElementById("fashion-character");
+    doll.classList.remove("doll-dance");
+    void doll.offsetWidth;
+    doll.classList.add("doll-dance");
 }
 
 function runwayPose() {
-  animateCharacter();
-  document.getElementById("fashion-status").innerText = "Runway time! 💃";
+    animateCharacter();
+    document.getElementById("fashion-status").textContent = "Runway time! 💃";
 }
 
 function saveLook() {
-  document.getElementById("fashion-status").innerText =
-    "Your look is saved in this session! 💖";
+    document.getElementById("fashion-status").textContent =
+        "Your look is saved in this session! 💖";
 }
 
 drawDoll();
 </script>
+
 </body>
 </html>
