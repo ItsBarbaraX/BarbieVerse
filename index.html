@@ -586,5 +586,142 @@ function saveLook() {
 drawDoll();
 </script>
 
+
+<style>
+#bv-welcome {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg,#ed5b9c,#9b69df,#382438);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+}
+#bv-welcome h1 {
+    font-size: 38px;
+    letter-spacing: 4px;
+}
+#bv-welcome p {
+    font-size: 17px;
+}
+#bv-enter, #bv-music {
+    border: 2px solid white;
+    background: white;
+    color: #a72e75;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+}
+#bv-music {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    z-index: 1000;
+    box-shadow: 0 3px 12px #0002;
+}
+</style>
+
+<div id="bv-welcome">
+    <h1>✨ BARBIEVERSE ✨</h1>
+    <p>Your world. Your rules. Your vibe.</p>
+    <p>Are you ready to enter your world?</p>
+    <button id="bv-enter">💗 ENTER BARBIEVERSE</button>
+</div>
+
+<button id="bv-music">🎵 Play Music</button>
+
+<script>
+let bvAudio;
+let bvMaster;
+let bvPlaying = false;
+
+function stopBVMusic() {
+    if (bvMaster && bvAudio) {
+        bvMaster.gain.cancelScheduledValues(bvAudio.currentTime);
+        bvMaster.gain.setTargetAtTime(
+            0, bvAudio.currentTime, 0.04
+        );
+    }
+    bvPlaying = false;
+    document.getElementById("bv-music").textContent =
+        "🎵 Play Music";
+}
+
+function playBVMusic() {
+    if (bvAudio) {
+        bvAudio.close();
+    }
+
+    bvAudio = new (window.AudioContext ||
+        window.webkitAudioContext)();
+
+    bvMaster = bvAudio.createGain();
+    bvMaster.gain.value = 0.16;
+    bvMaster.connect(bvAudio.destination);
+
+    bvPlaying = true;
+    document.getElementById("bv-music").textContent =
+        "🔇 Mute Music";
+
+    const notes = [
+        [523.25, 0], [659.25, 0.22],
+        [783.99, 0.44], [659.25, 0.66],
+        [880, 0.9], [783.99, 1.15],
+        [659.25, 1.4], [783.99, 1.65],
+        [1046.5, 1.95]
+    ];
+
+    notes.forEach(([frequency, start]) => {
+        const osc = bvAudio.createOscillator();
+        const volume = bvAudio.createGain();
+
+        osc.type = "triangle";
+        osc.frequency.value = frequency;
+
+        volume.gain.setValueAtTime(
+            0, bvAudio.currentTime + start
+        );
+        volume.gain.linearRampToValueAtTime(
+            0.7, bvAudio.currentTime + start + 0.04
+        );
+        volume.gain.exponentialRampToValueAtTime(
+            0.001, bvAudio.currentTime + start + 0.3
+        );
+
+        osc.connect(volume);
+        volume.connect(bvMaster);
+
+        osc.start(bvAudio.currentTime + start);
+        osc.stop(bvAudio.currentTime + start + 0.32);
+    });
+
+    setTimeout(() => {
+        if (bvPlaying) {
+            bvPlaying = false;
+            document.getElementById("bv-music").textContent =
+                "🔁 Replay Music";
+        }
+    }, 2600);
+}
+
+document.getElementById("bv-enter").onclick = function() {
+    document.getElementById("bv-welcome").style.display = "none";
+    playBVMusic();
+};
+
+document.getElementById("bv-music").onclick = function() {
+    if (bvPlaying) {
+        stopBVMusic();
+    } else {
+        playBVMusic();
+    }
+};
+</script>
+
 </body>
 </html>
+
